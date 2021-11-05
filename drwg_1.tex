@@ -1,0 +1,15 @@
+\documentclass[tikz, dvipsnames]{standalone}
+
+\usepackage{pgfplots}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[axis lines=none,
+height=4cm,
+width=4cm]
+
+\addplot[only marks,mark=none,nodes near coords,point meta=explicit symbolic] table[meta=v] {pascal_triangle.dat};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

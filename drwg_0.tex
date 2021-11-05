@@ -1,0 +1,41 @@
+\documentclass[dvipsnames, tikz]{standalone}
+
+
+\usepackage{pgfplots}
+
+
+\pgfplotsset{select coords between index/.style 2 args={
+    x filter/.code={
+        \ifnum\coordindex<#1\def\pgfmathresult{}\fi
+        \ifnum\coordindex>#2\def\pgfmathresult{}\fi
+    }
+}}
+
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[width=10cm,
+height=6cm,axis lines=none]
+
+\addplot[RoyalBlue,thick,smooth] table{cubic_bezier.dat};
+
+\addplot[mark=*,very thin,OrangeRed,nodes near coords={\pgfmathtruncatemacro\nValue{\coordindex} $b_\nValue$}] table[select coords between index={0}{3}] {cubic_bezier_points.tex}
+node[pos={0.15},sloped,anchor=south] {$b_0^1$}
+node[pos={0.45},sloped,anchor=south] {$b_1^1$}
+node[pos={0.8},sloped,anchor=south] {$b_2^1$};
+
+
+
+\addplot[mark=x,very thin,ForestGreen] table[select coords between index={4}{6}] {cubic_bezier_points.tex}
+node[pos=0.25,sloped,anchor=south] {$b_0^2$}
+node[pos=0.75,sloped,anchor=south] {$b_1^2$};
+
+
+\addplot[mark=x,very thin,Violet] table[select coords between index={7}{8}] {cubic_bezier_points.tex}
+node[pos=0.5,sloped,anchor=south] {$b_0^3$};
+
+\addplot[mark=o,RoyalBlue] table[select coords between index={9}{9}] {cubic_bezier_points.tex};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}
