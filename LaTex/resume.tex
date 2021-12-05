@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \pagestyle{empty}
 \usepackage{float}
+\usepackage{physics}
 
 \begin{document}
 \begin{multicols}{3}
@@ -89,11 +90,34 @@ a_{13} & a_{23} & a_{33}
 \subsection{Permutations}
 Attention, si on utilise des permutations, alors
 $$PA\vec{x}=P\vec{b}$$
-
-
-
-
-
+\subsection{Méthode QR}
+On commence avec une matrice $A_{n\times n}$
+\begin{enumerate}
+\item Prendre le premier vecteur colonne de $A$ : $\vec{v}_1$
+\item Faire la décomposition pour obtenir $H_1$
+\item Construire $H_1A$ puis prendre $v_2$ (première colonne de $H_1A$ \textbf{sans la première ligne et sans la première colonne}
+\item à la fin, déterminer $R$ et $Q$
+\end{enumerate}
+$$H_nH_{n-1}\cdots H_2H_1A=R\longrightarrow A=\underbrace{H_1H_2\cdots H_{n-1}^TH_n^T}_{Q}R$$
+$v$ est un vecteur de norme $1$, on utilise $\tilde{v}$ si la norme est plus grande
+$$\vec{v}=\frac{\vec{n}}{\abs{\abs{\vec{n}}}}\qquad \vec{n}=x-y$$
+$$y=\rho\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}=\text{signe}(x_i)\abs{\abs{x_i}}\left.\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}\right\rbrace\text{taille de }x$$
+$$H=I-2vv^{H}$$
+\section{Résolution numérique par itérations}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1,page=1]{drwg_2.pdf}
+\end{figure}
+\subsection{Méthode de Jacobi}
+$$\vec{x}^{(k)}=D^{-1}\left(b-(A-D)\vec{x}^{(k-1)}\right)$$
+\subsection{Méthode de Gauss-Seidel}
+$$\vec{x}^{(k+1)}=(E+D)^{-1}\left(\vec{b}-F\vec{x}^{(k-1)}\right)$$
+\subsection{Méthode SOR}
+$$\vec{x}^{(k+1)}=(D+\omega E)^{-1}\cdot \left(\omega \vec{b}-(\omega F+(\omega-1)D)\vec{x}^{(k)}\right)$$
 \section{Généralités}
 \subsection{Matrices}
 \subsubsection{Inverses}
@@ -118,6 +142,14 @@ $$\begin{pmatrix}
 -\frac{\textcolor{OrangeRed}{b}}{\textcolor{RoyalBlue}{a}\textcolor{Violet}{d}} & \frac{1}{\textcolor{Violet}{d}} & 0\\
 \frac{\textcolor{OrangeRed}{b}\textcolor{Orange}{e}-\textcolor{ForestGreen}{c}\textcolor{Violet}{d}}{\textcolor{RoyalBlue}{a}\textcolor{Violet}{d}\textcolor{ProcessBlue}{f}} & -\frac{\textcolor{Orange}{e}}{\textcolor{ProcessBlue}{f}\textcolor{Violet}{d}} &
 \frac{1}{\textcolor{ProcessBlue}{f}}
+\end{pmatrix}$$
+Pour une matrice $2\times 2$
+$$\begin{pmatrix}
+\textcolor{RoyalBlue}{a} & \textcolor{OrangeRed}{b}\\
+\textcolor{ForestGreen}{c} & \textcolor{Violet}{d}
+\end{pmatrix}^{-1}=\frac{1}{\textcolor{RoyalBlue}{a}\textcolor{Violet}{d}-\textcolor{OrangeRed}{b}\textcolor{ForestGreen}{c}}\begin{pmatrix}
+\textcolor{Violet}{d} & \textcolor{OrangeRed}{-b}\\
+\textcolor{ForestGreen}{-c} & \textcolor{RoyalBlue}{a}
 \end{pmatrix}$$
 
 
