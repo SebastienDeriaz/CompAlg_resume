@@ -1,0 +1,38 @@
+\documentclass[resume]{subfiles}
+
+
+\begin{document}
+\section{Résolution EDO}
+$$\boxed{y'=f(t,y(t))}$$
+\begin{enumerate}
+\item Méthode d'Euler
+$$y_{k+1}=y_k+hf(t_k,y_k)$$
+\item Méthode du point milieu
+$$y_{k+1}=y_k+hf\left(t_k+\frac{h}{2},y_k+\frac{h}{2}f\left(t_k,y_k\right)\right)$$
+\item Méthode de Runge-Kutta 4
+$$y_{k+1}=y_k+\frac{h}{6}\left(k_1+2k_2+2k_3+k_4\right)$$
+\begin{align*}
+k_1&=f(t_k,y_k)\\
+k_2&=f\left(t_k+\frac{h}{2},y_k+\frac{h}{2}k_1\right)\\
+k_3&=f\left(t_k+\frac{h}{2},y_k+\frac{h}{2}k_2\right)\\
+k_4&=f(t_k+h,y_k+hk_3)
+\end{align*}
+\end{enumerate}
+
+
+
+
+\subsection{Réduction d'ordre}
+$$y(t)=y_1\quad y'(t)=y_2\quad \cdots \quad y^{(n+1)}=y_{n}$$
+$$\vec{u}=\frac{d}{dt}\begin{pmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_n
+\end{pmatrix}\qquad \vec{u}_0=\begin{pmatrix}
+y(0)\\
+y'(0)\\
+\vdots\\
+y^{(n+1)}(0)
+\end{pmatrix}$$
+\end{document}
