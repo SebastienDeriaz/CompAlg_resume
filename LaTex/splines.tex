@@ -1,0 +1,82 @@
+\documentclass[resume]{subfiles}
+
+
+\begin{document}
+    \section{Splines}
+    \subsection{Polynômes de degré 1}
+        Entre $(x_0,y_0)$ et $(x_1,y_1)$:
+        $$f(x)=m(x-x_0) + y_0\qquad m=\frac{y_0-y_1}{x_0-x_1}$$
+        Bonne approximation mais points anguleux
+    \subsection{Polynômes de degré 2}
+    \begin{align*}
+        s_0(x_1) =s_1(x_1)= y_1 & &s'_0(x_1)=s_1'(x_1)\\
+        s_1(x_2) =s_2(x_2)= y_2 & &s'_1(x_2)=s_2'(x_2)
+    \end{align*}
+    $$s_0(x_0)=y_0\qquad s_n(x_{n+1})=y_{n+1}$$
+    $3n-1$ conditions pour $3n$ inconnues. Un degré de liberté : $s'_0(x_0)$
+    
+    \subsection{Polynômes de degré 3}
+    \begin{small}
+	    \begin{align*}
+        s_0(x_1) =s_1(x_1)= y_1 & &s'_0(x_1)=s_1'(x_1) & & s''_0(x_1)=s''_1(x_1)\\
+        s_1(x_2) =s_2(x_2)= y_2 & &s'_1(x_2)=s_2'(x_2) & & s''_1(x_2)=s''_2(x_2)
+    \end{align*}    
+    \end{small}
+    $$s_0(x_0)=y_0\qquad s_n(x_{n+1})=y_{n+1}$$
+    $4n-2$ conditions pour $4n$ inconnues.
+    $$s''_0(x_0)=s''_{n-1}(x_n)=0\longrightarrow \text{ spline naturelle}$$
+
+    Chaque segment est donné par
+    $$\boxed{s_i(x)=a_i(x-x_i)^3+b_i(x-x_i)^2+c_i(x-x_i)+d_i}$$
+    On trouve ensuite les coefficients pour chacun avec
+	$$\begin{cases}
+	a_i &= \frac{1}{6h}\left(y''_{i+1}-y''_{i}\right)\\
+	b_i &= \frac{1}{2}y_i''\\
+	c_i &= \frac{1}{h}\left(y_{i+1}-y_i\right)-\frac{1}{6}h\left(y''_{i+1}+2y_{i}''\right)\\
+	d_i &= y_i
+	\end{cases}$$
+	$$\begin{pmatrix}
+4 & 1 & 0 & 0\\
+1 & 4 & 1 & 0\\
+0 & 1 & 4 & 1\\
+0 & 0 & 1 & 4
+\end{pmatrix}\begin{pmatrix}
+y_1''\\
+y_2''\\
+y_3''\\
+y_4''
+\end{pmatrix}=\frac{6}{h^2}\begin{pmatrix}
+y_2-2y_1+y_0\\
+y_3-2y_2+y_1\\
+y_4-2y_3+y_2\\
+y_5-2y_4+y_3
+\end{pmatrix}-\begin{pmatrix}
+y_0''\\
+0\\
+0\\
+y_5''
+\end{pmatrix}$$
+Note :
+$$\begin{pmatrix}
+4 & 1 & 0\\
+1 & 4 & 1\\
+0 & 1 & 4
+\end{pmatrix}^{I}=\frac{1}{56}\begin{pmatrix}
+15 & -4 & 1\\
+-4 & 16 & -4\\
+1 & -4 & 15
+\end{pmatrix}$$
+\subsubsection{Erreur}
+$f(x)$ doit être 4 fois continûment dérivable et les points équidistants
+\begin{align*}
+\abs{f(x)-s(x)}&\leq C_0h^4\max_{\zeta\in I}\abs{f^{(4)}(\zeta)}\\
+\abs{f'(x)-s'(x)}&\leq C_1h^3\max_{\zeta\in I}\abs{f^{(4)}(\zeta)}\\
+\abs{f''(x)-s''(x)}&\leq C_2h^2\max_{\zeta\in I}\abs{f^{(4)}(\zeta)}\\
+\abs{f'''(x)-s'''(x)}&\leq C_3h^1\max_{\zeta\in I}\abs{f^{(4)}(\zeta)} & x\neq x_0,x_1,...
+\end{align*}
+\subsubsection{Courbes paramétrique}
+Faire une spline pour chaque coordonnée ($x$, $y$, etc...) en fonction de $t$. Possibilité de faire une approximation
+$$t_{i+1}-t_{i}\approx \text{distance entre } (x_i,y_i)\text{ et } (x_{i+1},y_{i+1})$$
+
+    
+\end{document}
