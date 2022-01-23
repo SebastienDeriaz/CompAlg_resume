@@ -3,7 +3,45 @@
 
 \begin{document}
     \section{Systèmes d'équations non linéaires}
-
+\subsection{Point fixe}
+$$\boxed{\bold{F}(\bold{x})=\begin{pmatrix}
+F(x,y)\\
+G(x,y)
+\end{pmatrix}\qquad \bold{x}=\begin{pmatrix}
+x\\y
+\end{pmatrix}}$$
+$\bold{F}$ est une contraction si
+$$\abs{\abs{\bold{F}(\bold{x})-\bold{F}(x')}}\leq L\abs{\abs{\bold{x}-\bold{x}'}}\qquad \abs{\abs{\bold{x}}}=\sqrt{x^2+y^2}$$
+Et donc $\bold{F}$ possède un seul point fixe (et y converge de toute façon).
+$$\boxed{\max_{(x,y)\in D}\abs{\abs{\mathbf{J}(x,y)}}<1\longrightarrow \text{ contraction sur }D}$$
+$$\abs{\abs{\mathbf{J}(x,y)}}=\sqrt{F_x(x,y)^2+F_y(x,y)^2+G_x(x,y)^2+G_y(x,y)^2}$$
+Matrice de Jacobi :
+$$\mathbf{J}(x,y)=\begin{pmatrix}
+F_x(x,y) & F_y(x,y)\\
+G_x(x,y) & G_y(x,y)
+\end{pmatrix}$$
+Résultat global mais difficile de trouver un domaine $D$... Il existe une version locale
+$$\rho(\mathbf{J}(\mathbf{r}))<1\longrightarrow\text{ converge à l'intérieur d'un disque } D\text{ vers }\mathbf{r}$$
+Avec $\rho$ le rayon spectral (maximum des modules des valeurs propres de la matrice).
+\subsubsection{Ordre}
+Convergence linéaire
+$$\abs{\abs{\mathbf{e}_{k+1}}}\lessapprox \abs{\abs{\mathbf{J}(r,s)}}\cdot \abs{\abs{\mathbf{e}_k}}$$
+Si $\mathbf{J}(r,s)$ est nulle on a un ordre de convergence quadratique.
+\subsubsection{Estimation}
+\begin{enumerate}
+\item A priori : 
+$$\abs{\abs{\bold{r}-\bold{x}_k}}\leq \frac{L^{k}}{1-L}\abs{\bold{x}_1-\bold{x}_0}$$
+\item A posteriori :
+$$\abs{\abs{\bold{r}-\bold{x}_k}}\leq \frac{L}{1-L}\abs{\bold{x}_k-\bold{x}_{k-1}}$$
+\end{enumerate}
+\subsection{Méthode de Newton}
+$$\boxed{x_{k+1}=x_k+\frac{g(x_k,y_k)f_y(x_k,y_k)-f(x_k,y_k)g_y(x_k,y_k)}{f_x(x_k,y_k)g_y(x_k,y_k)-f_y(x_k,y_k)g_x(x_k,y_k)}}$$
+$$\boxed{y_{k+1}=y_k+\frac{f(x_k,y_k)g_x(x_k,y_k)-g(x_k,y_k)f_x(x_k,y_k)}{f_x(x_k,y_k)g_y(x_k,y_k)-f_y(x_k,y_k)g_x(x_k,y_k)}}$$
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\columnwidth]{img_18.pdf}
+\end{figure}
+La matrice de Jacobi donne une information sur la convergence (lente si déterminant égal à 0)
 
     
 \end{document}

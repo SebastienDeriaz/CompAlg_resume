@@ -2,7 +2,82 @@
 
 
 \begin{document}
-    \section{Résolution numérique}
+    \section{Résolution numérique de systèmes linéaires}
+    \begin{align*}
+    a_{11}x_1+\cdots+a_{1n}x_n &=b_1\\
+    \vdots \\
+    a_{n1}x_1 + \cdots + a_{nn}x_n &= b_n
+    \end{align*}
+    
+    $$\underbrace{\begin{pmatrix}
+    a_{11} & \cdots & a_{1n}\\
+    \vdots & \ddots & \vdots\\
+    a_{n1} & \cdots & a_{nn}
+    \end{pmatrix}}_{A}\underbrace{\begin{pmatrix}
+    x_1\\\vdots\\x_n
+    \end{pmatrix}}_{\vec{x}}=\underbrace{\begin{pmatrix}
+    b_1\\\vdots\\b_n
+    \end{pmatrix}}_{\vec{b}}$$
+	Si peu d'éléments sont non-nuls alors $A$ est dite \textbf{creuse}
+	\subsection{Condition d'arrêt}
+	$$\abs{\abs{\vec{r}_k}}=\abs{\abs{\vec{b}-A\vec{x}_k}}\leq \tau\abs{\abs{\vec{b}}}$$
+	On peut aussi utiliser une condition d'arrêt sur l'erreur $\vec{e}_k$ au lieu du résidu $\vec{r}_k=\vec{b}-A\vec{x}_k$
+	\subsubsection{Lien entre résidu et erreur}
+	$$\frac{\abs{\abs{\vec{x}-\vec{x}_k}}}{\abs{\abs{\vec{x}_k}}_p}\leq \underbrace{\abs{\abs{A}}_p\abs{\abs{A^{-1}}}_p}_{\kappa_p(A)}\frac{\abs{\abs{\vec{b}-A\vec{x}_k}}_p}{\abs{\abs{\vec{b}}}_p}$$
+	Autant de digits valides dans la mantisse que
+	$$\abs{\log_{10}(\varepsilon)}-\log_{10}(\kappa(A)_p)$$
+	Avec $\varepsilon$ la précision machine (1e-16 en général)
+	\subsubsection{Perturbation}
+	Perturbation sur $A$
+	$$\boxed{\frac{\abs{\abs{\delta\vec{x}_A}}}{\abs{\abs{\vec{x}+\delta \vec{x}_A}}}\leq \abs{\abs{\vec{A}}}\cdot\abs{\abs{\vec{A}^{-1}}}\cdot\frac{\abs{\abs{\delta A}}}{\abs{\abs{A}}}}$$
+	Perturbation sur $A$ et $\vec{b}$:
+	$$\boxed{\frac{\abs{\abs{\delta\vec{x}}}}{\abs{\abs{\vec{x}+\delta \vec{x}}}}\leq \frac{\abs{\abs{\vec{A}}}\cdot\abs{\abs{\vec{A}^{-1}}}}{1-\abs{\abs{A}}\cdot \abs{\abs{A^{-1}}}\frac{\abs{\abs{\delta A}}}{\abs{\abs{A}}}}\cdot\left(\frac{\abs{\abs{\delta A}}}{\abs{\abs{A}}}+\frac{\abs{\abs{\delta \vec{b}}}}{\abs{\abs{\vec{b}}}}\right)}$$
+	\subsection{Normes}
+	$$\abs{\abs{\vec{v}}}_p=\left(\sum_{i=1}^{n}\abs{v_i}^p\right)^{\frac{1}{p}}$$
+	\begin{enumerate}
+	\item Vecteurs
+		\begin{enumerate}
+	\item 1-norme : somme des composantes
+	\item 2-norme : norme euclidienne
+	\item max-norme : $p\to\infty$
+%	$$\abs{\abs{\vec{v}}}_{\infty}=\max(\abs{v_i})$$
+	\end{enumerate}
+	\item Matrices
+	\begin{enumerate}
+	\item 1-norme :
+%	$$\abs{\abs{A}}_1=\max_{1\leq j\leq n}\sum_{i=1}^{n}\abs{a_{ij}}$$
+	\item 2-norme : ou max des valeurs propres de $A^{T}A$
+%	$$\abs{\abs{A}}_2=\sqrt{\max\abs{\lambda(A^{T}A)}}$$
+	\item max-norme
+%	$$\abs{\abs{A}}_{\infty}=\abs{\abs{A^{T}}}_1$$
+	\end{enumerate}
+	\end{enumerate}
+
+	\begin{enumerate}
+	\item $\abs{\abs{\vec{v}}}=0\longleftrightarrow \vec{v}=\vec{0}$
+	\item $\abs{\abs{\lambda\vec{v}}}=\abs{\lambda}\cdot \abs{\abs{\vec{v}}}$
+	\item $\abs{\abs{\vec{v}+\vec{u}}}\leq \abs{\abs{\vec{v}}}+\abs{\abs{\vec{u}}}$
+	\end{enumerate}
+	\subsection{Méthodes directes}
+	\subsubsection{Élimination de Gauss sans pivot}
+	Effectuer des combinaisons linéaires des lignes pour obtenir une matrice triangulaire supérieure. Matrice augmentée :
+	$$\begin{amatrix}{3}
+10 & -7 & 0 & 7\\
+0 & -0.1 & 6 & 6.1\\
+0 & 2.5 & 5 & 2.5\\
+\end{amatrix}$$
+\begin{enumerate}
+\item Commencer par la colonne de gauche
+\item Si nécessaire, permuter les lignes pour avoir un non-nul comme premier élément
+\item Faire les combinaisons linéaires des lignes pour annuler les éléments inférieurs
+\item Passer à la colonne suivante
+\end{enumerate}
+
+	
+	
+	
+	
+    
 
 
     

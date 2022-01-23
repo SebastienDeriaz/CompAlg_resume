@@ -3,6 +3,78 @@
 
 \begin{document}
     \section{Équations non linéaires}
+	\subsection{Existence d'une solution}
+	Solution $f(r)=0$ entre $a$ et $b$ pour $f$ continue
+	$$f(a)\cdot f(b)<0$$
+	\subsection{Bissection}
+	\begin{enumerate}
+	\item $a_0=a$, $b_0=b$, $x_0=\frac{a+b}{2}$
+	\item Répéter jusqu'à ce que $\abs{a_k-b_k}\geq tol\cdot \abs{b_k}$
+	\begin{enumerate}
+	\item Si $f(x_k)f(a_k)<0$ : $a_{k+1}=a_k$, $b_{k+1}=x_k$
+	\item Si $f(x_k)f(a_k)>0$ : $a_{k+1}=x_k$, $b_{k+1}=b_k$
+	\item $x_{k}=\frac{a_{k}+b_{k}}{2}$
+	\end{enumerate}
+	\end{enumerate}
+	L'erreur converge avec
+	$$\abs{e_k}<\frac{b-a}{2^{k+1}}$$
+	\begin{enumerate}
+	\item Robuste
+	\item Intervalles qui contiennent la solution
+	\item Majorant connu de l'erreur
+	\item Lente
+	\end{enumerate}
+	\subsection{Regula falsi}
+A l'exception du premier terme, on doit décider si on utilise $x_{k-1}$ avec $x_{k-2}$ ou $x_{k-3}$
+$$\boxed{x_{k}=\begin{cases}
+x_{k-2}-y_{k-2}\frac{x_{k-1}-x_{k-2}}{y_{k-1}-y_{k-2}} & y_{k-1}\cdot y_{k-2} < 0\\
+x_{k-3}-y_{k-3}\frac{x_{k-1}-x_{k-3}}{y_{k-1}-y_{k-3}} & y_{k-1}\cdot y_{k-3} < 0
+\end{cases}}$$
+\subsection{Sécante}
+$$\boxed{x_{k+1}=x_{k}-f(x_k)\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}}$$
+Ordre de convergence de
+$$p=\frac{1+\sqrt{5}}{2}=\phi$$
+\begin{enumerate}
+\item Pas de connaissance de la dérivée
+\item Une seule évaluation de $f$
+\item Plus efficace que Newton (plus facile à calculer)
+\end{enumerate}
+\subsection{Newton}
+$$\boxed{x_{k+1}=x_{k}-\frac{f(x_{k}}{f'(x_{k})}}$$
+$$\abs{e_{k+1}}\approx \abs{\frac{f''(r)}{f'(r)}}\cdot \abs{e_k}^2$$
+\begin{enumerate}
+\item Très rapide
+\item Peut ne pas converger
+\end{enumerate}
+\subsection{Point fixe} 
+On veut une équation sous la forme :
+$$\boxed{x=F(x)\longrightarrow x_{k+1}=F(x_{k})}$$
+Manipulation de $f$ pour obtenir $F$
+$$f(x)=x^5+x^3-x-5\longrightarrow F(x)=x^5+x^3-5$$
+$$C=\abs{F'(r)}$$
+Pour gagner une décimale il faut que
+$$k\geq \frac{\ln(10)}{\ln(C)}$$
+\subsubsection{Théorème de Banach}
+Si 
+$$\abs{F(x_1)-F(x_2)}\leq L\abs{x_1-x_2}\qquad 0<L<1\quad \forall x_1,x_2\in I$$
+Alors il existe une seule solution $r$ dans $I$
+\begin{enumerate}
+\item Fonction Lipschitzienne : qui satisfait la condition de Lipschitz avec n'importe quel $L$
+\item Fonction contractante : qui satisfait la condition de Lipschitz et $0<L<1$
+\end{enumerate}
+$$L_\text{optimal}=\max_{x\in I}\abs{F'(x)}$$
+\subsubsection{Estimation}
+\begin{enumerate}
+\item A priori : 
+$$\abs{r-x_k}\leq \frac{L^{k}}{1-L}\abs{x_1-x_0}$$
+\item A posteriori :
+$$\abs{r-x_k}\leq \frac{L}{1-L}\abs{x_k-x_{k-1}}$$
+\end{enumerate}
+
+
+
+
+	
 
 
     

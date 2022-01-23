@@ -56,6 +56,21 @@ $$\boxed{\int_{a}^{b}f(x)dx\approx h\left(\frac{1}{2}f(a)+\sum_{j=1}^{n-1}f(x_j)
 	\centering
 	\includegraphics[width=\columnwidth]{img_8.pdf}
 	\end{figure}
-
-    
+	\subsection{Romberg}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1]{drwg_5.pdf}
+	\end{figure}
+	
+	\begin{enumerate}
+	\item Facile
+	\item Coûteuse pour une grande précision
+	\item Il faut que la fonction soit $2k+2$ fois continûment dérivable pour aller jusqu'à la colonne $k$
+	\end{enumerate}
+	\subsection{Choix de la méthode}
+	\begin{enumerate}
+	\item Périodique + infiniment dérivable : Trapèze
+	\item Polynôme cubique : Simpson (pas d'erreur)
+	\item Infiniment dérivable non périodique : Gauss ou Simpson adaptative (Romberg plus coûteuse)
+	\end{enumerate}  
 \end{document}

@@ -2,6 +2,8 @@
 
 ## Modalités
 
+- Formulaires et tables accepté
+
 ### Contenu
 
 ## Liste des sujets
