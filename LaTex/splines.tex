@@ -3,11 +3,11 @@
 
 \begin{document}
     \section{Splines}
-    \subsection{Polynômes de degré 1}
+    \subsection{Polynômes de degré 1 (linéaire)}
         Entre $(x_0,y_0)$ et $(x_1,y_1)$:
         $$f(x)=m(x-x_0) + y_0\qquad m=\frac{y_0-y_1}{x_0-x_1}$$
         Bonne approximation mais points anguleux
-    \subsection{Polynômes de degré 2}
+    \subsection{Polynômes de degré 2 (quadratique)}
     \begin{align*}
         s_0(x_1) =s_1(x_1)= y_1 & &s'_0(x_1)=s_1'(x_1)\\
         s_1(x_2) =s_2(x_2)= y_2 & &s'_1(x_2)=s_2'(x_2)
@@ -15,7 +15,7 @@
     $$s_0(x_0)=y_0\qquad s_n(x_{n+1})=y_{n+1}$$
     $3n-1$ conditions pour $3n$ inconnues. Un degré de liberté : $s'_0(x_0)$
     
-    \subsection{Polynômes de degré 3}
+    \subsection{Polynômes de degré 3 (cubique)}
     \begin{small}
 	    \begin{align*}
         s_0(x_1) =s_1(x_1)= y_1 & &s'_0(x_1)=s_1'(x_1) & & s''_0(x_1)=s''_1(x_1)\\
@@ -24,7 +24,7 @@
     \end{small}
     $$s_0(x_0)=y_0\qquad s_n(x_{n+1})=y_{n+1}$$
     $4n-2$ conditions pour $4n$ inconnues.
-    $$s''_0(x_0)=s''_{n-1}(x_n)=0\longrightarrow \text{ spline naturelle}$$
+    $$s''_0(x_0)=s''_{n-1}(x_n)=0\longrightarrow \text{ \textbf{spline naturelle}}$$
 
     Chaque segment est donné par
     $$\boxed{s_i(x)=a_i(x-x_i)^3+b_i(x-x_i)^2+c_i(x-x_i)+d_i}$$
@@ -35,12 +35,12 @@
 	c_i &= \frac{1}{h}\left(y_{i+1}-y_i\right)-\frac{1}{6}h\left(y''_{i+1}+2y_{i}''\right)\\
 	d_i &= y_i
 	\end{cases}$$
-	$$\begin{pmatrix}
+	$$\underset{n-1\times n-1}{\begin{pmatrix}
 4 & 1 & 0 & 0\\
 1 & 4 & 1 & 0\\
 0 & 1 & 4 & 1\\
 0 & 0 & 1 & 4
-\end{pmatrix}\begin{pmatrix}
+\end{pmatrix}}\begin{pmatrix}
 y_1''\\
 y_2''\\
 y_3''\\

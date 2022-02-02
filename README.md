@@ -63,3 +63,9 @@
    2) Méthodes explicites
    3) Méthodes implicites
    4) Butcher
+
+
+A revoir :
+- Transformation QR (surtout matrice $H$ et comment obtenir QR)
+- Régressions linéaires (moindres carrés) de SignProc
+  - Voir page 8 de semaine 10 (façon de noter, simuler pourquoi pas)

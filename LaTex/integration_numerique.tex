@@ -40,15 +40,19 @@ $$\boxed{\int_{a}^{b}f(x)dx\approx h\left(\frac{1}{2}f(a)+\sum_{j=1}^{n-1}f(x_j)
 	\begin{align*}
 	\int_{x_0}^{x_4}f(x)dx\approx \frac{2h}{45} \Big(7f(x_0)&+32f(x_1)+12f(x_2)\\ &+32f(x_3)+7f(x_4)\Big)
 	\end{align*}
+	Non composite $\to$ utiliser les formules tel quel (pas de séparation en sous-intervalles).
 	
 	
 	$n$ pair : polynômes jusqu'à $n+1$. $n$ impair : polynômes jusqu'à $n$
 	\subsection{Formule de composition de Simpson}
-	Cas général avec $2n$ sous intervalles
-	$$\boxed{\begin{split}S_c=\frac{h}{3}\Big(f(a)&+3f(x_1)\\&+f(b)+2\sum_{k=1}^{n-1}\left(f(x_{2k})+2f(x_{2k+1})\right)\Big)\end{split}}$$
+	Cas général avec $2n$ sous intervalles ($n$ polynômes)
+	\begin{multline*}
+	S_c=\frac{h}{3}\Big(f(a)+4f(x_1)\\+f(b)+2\sum_{k=1}^{n-1}\left(f(x_{2k})+2f(x_{2k+1})\right)\Big)
+	\end{multline*}
+		$$h=\frac{b-a}{2n}$$
 	\subsubsection{Erreur}
 	$$\boxed{\abs{\int_a^bf(x)dx-S_c}\leq \frac{h^4(b-a)}{180}\max_{a\leq x\leq b}\abs{f^{(4)}(x)}}$$
-	$$h=\frac{b-a}{2n}$$
+
 	\subsection{Formule de Simpson adaptative}
 	Intervalles non uniformes
 	\subsection{Récapitulatif}
@@ -57,20 +61,33 @@ $$\boxed{\int_{a}^{b}f(x)dx\approx h\left(\frac{1}{2}f(a)+\sum_{j=1}^{n-1}f(x_j)
 	\includegraphics[width=\columnwidth]{img_8.pdf}
 	\end{figure}
 	\subsection{Romberg}
+	$$n=4\longrightarrow \text{ 5 lignes et 5 colonnes}$$
 	\begin{figure}[H]
 	\centering
 	\includegraphics[scale=1]{drwg_5.pdf}
 	\end{figure}
-	
+	$$T_{0,0}=T(h)$$
+	$$T_{1,0}=T(h/2)$$
+	$$T_{2,0}=T(h/4)$$
+	$$T_{n,0}=T(h/2^n)$$	
 	\begin{enumerate}
 	\item Facile
 	\item Coûteuse pour une grande précision
 	\item Il faut que la fonction soit $2k+2$ fois continûment dérivable pour aller jusqu'à la colonne $k$
-	\end{enumerate}
+	\end{enumerate}	
 	\subsection{Choix de la méthode}
 	\begin{enumerate}
 	\item Périodique + infiniment dérivable : Trapèze
 	\item Polynôme cubique : Simpson (pas d'erreur)
 	\item Infiniment dérivable non périodique : Gauss ou Simpson adaptative (Romberg plus coûteuse)
 	\end{enumerate}  
+	\subsection{Polynômes de Legendre}
+	$$P_n(x)=\frac{1}{2^n\cdot n!}\frac{d^n}{dx^n}\left((x^2-1)^n\right)$$
+	\begin{align*}
+	P_0(x)&=1& P_3(x)&=\frac{1}{2}(5x^3-3x)\\
+	P_1(x)&=x & P_4(x)&=\frac{1}{8}(35x^4-30x^2+3) \\
+	P_2(x)&=\frac{1}{2}(3x^2-1)& P_5(x)&=\frac{1}{8}(63x^5-70x^3+15x)
+	\end{align*}
+
+
 \end{document}

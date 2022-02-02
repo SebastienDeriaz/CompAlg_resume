@@ -5,7 +5,7 @@
     \section{Courbes et surfaces}
     \subsection{Courbes de Bézier (De Casteljau)}
     \begin{center}
-	\includegraphics[width=0.6\columnwidth,page=1]{drwg_0.pdf}
+	\includegraphics[width=0.8\columnwidth,page=1]{drwg_0.pdf}
 	\end{center}
     $$\text{ordre }n \longleftrightarrow n+1\text{ points}$$
 	$$\boxed{b_{\text{départ}}^{\text{degré}}}$$
@@ -16,6 +16,30 @@
 		b_{0}^{2}(t)&=(1-t)\textcolor{RoyalBlue}{b_0^1(t)}+t\textcolor{OrangeRed}{b_1^1(t)} & b_0\to b_2
 	\end{align*}
 	La courbe de Bézier est comprise dans le polygone de contrôle (points de contrôles reliés).
+	\subsubsection{Schéma triangulaire}
+On représente les points de base sur la première colonne
+\begin{align*}
+&\begin{bmatrix}
+1\\1
+\end{bmatrix}\\
+&\begin{bmatrix}
+2\\2.5
+\end{bmatrix} \begin{bmatrix}
+4/3\\3/2
+\end{bmatrix}\\
+&\begin{bmatrix}
+4\\1.5
+\end{bmatrix} \begin{bmatrix}
+8/3\\13/6
+\end{bmatrix} \begin{bmatrix}
+16/9\\
+31/18
+\end{bmatrix}
+\end{align*}
+On prend la valeur du haut multipliée par $(1-t)$ et celle du bas par $t$
+\subsubsection{Généralisation}
+$$b_{0}^{3}(t)=(1-t)b_{0}^{2}+tb_1^{2}(t)$$
+
 	\subsection{Polynômes de Bernstein}
 	$$\boxed{B_i^n(t)=\begin{pmatrix}
 	n\\i
