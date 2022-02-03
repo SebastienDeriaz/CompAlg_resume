@@ -50,11 +50,12 @@ $$\abs{e_{k+1}}\approx \abs{\frac{f''(r)}{f'(r)}}\cdot \abs{e_k}^2$$
 \end{enumerate}
 \subsection{Point fixe}
 $$\boxed{x=F(x)}$$
+$$x_{k+1}=F(x_k)$$
 Résultat global mais difficile de trouver un domaine $D$... Il existe une version locale
 $$\rho(\mathbf{J}(\mathbf{r}))<1\longrightarrow\text{ converge dans un disque } D\text{ vers }\mathbf{r}$$
 Avec $\rho$ le rayon spectral (maximum des modules des valeurs propres de la matrice).
 \subsubsection{Théorème de Banach}
-$$\max_{x\in I}\abs{F'(x)}<1\longrightarrow\text{ contraction sur }I$$
+$$L=\max_{x\in I}\abs{F'(x)}<1\longrightarrow\text{ contraction sur }I$$
 $$\abs{F(x_1)-F(x_2)}\leq L\abs{x_1-x_2}$$
 $$0<L<1\quad \forall x_1,x_2\in I$$
 Alors il existe une seule solution $r$ dans $I$

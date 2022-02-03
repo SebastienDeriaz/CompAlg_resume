@@ -3,6 +3,8 @@
 
 \begin{document}
     \section{Résolution numérique de systèmes linéaires}
+\paragraph{Système mal conditionné} $\kappa_\infty(A)$ très grand     
+    
     \begin{align*}
     a_{11}x_1+\cdots+a_{1n}x_n &=b_1\\
     \vdots \\
@@ -29,7 +31,7 @@
 	\subsubsection{Lien entre résidu et erreur}
 	$$\frac{\abs{\abs{\vec{x}-\vec{x}_k}}}{\abs{\abs{\vec{x}_k}}_p}\leq \underbrace{\abs{\abs{A}}_p\abs{\abs{A^{-1}}}_p}_{\kappa_p(A)}\frac{\abs{\abs{\vec{b}-A\vec{x}_k}}_p}{\abs{\abs{\vec{b}}}_p}$$
 	Autant de digits valides dans la mantisse que
-	$$\abs{\log_{10}(\varepsilon)}-\log_{10}(\kappa(A)_p)$$
+	$$N_\text{digits}=\abs{\log_{10}(\varepsilon)}-\log_{10}(\kappa(A)_p)$$
 	Avec $\varepsilon$ la précision machine (1e-16 en général)
 	\subsubsection{Perturbation}
 	Perturbation sur $A$
@@ -153,7 +155,7 @@ a_{13} & a_{23} & a_{33}
 Attention, si on utilise des permutations, alors
 $$PA\vec{x}=P\vec{b}$$
 \subsubsection{Méthode QR}
-
+$R$ est triangulaire supérieur (en dessous-gauche de la diagonale : que des 0)
 $$A=QR\longrightarrow R\vec{x}=Q^{-1}\vec{b}\longrightarrow R\vec{x}=\underbrace{Q_t\vec{b}}_{\vec{c}}$$
 \begin{scriptsize}
 $$\begin{pmatrix}
@@ -185,26 +187,54 @@ Avec les propriétés de $Q$ :
 
 On commence avec une matrice $A_{n\times n}$
 \begin{enumerate}
-\item Prendre le premier vecteur colonne de $A$ : $\vec{v}_1$
+\item Prendre le premier vecteur colonne de $A$ : $\vec{x}_1$
+\item Déterminer $\vec{y}$
+$$y=\textcolor{OrangeRed}{-}\rho\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}=\textcolor{OrangeRed}{-}\text{signe}(a_{ii})\abs{\abs{x_i}}\left.\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}\right\rbrace\text{taille de }x$$
+\item Déterminer $\vec{v}$
+$$\vec{v}=\vec{x}-\vec{y}$$
+$$\gamma=\frac{\abs{\abs{\vec{v}}}^2}{2}$$
 \item Faire la décomposition pour obtenir $H_1$
+$$\tilde{H}=I-\frac{2}{\abs{\abs{v}}^2}vv^T$$
+$$H=\begin{pmatrix}
+I & 0\\
+0 & \tilde{H}
+\end{pmatrix}\quad \text{(si nécessaire)}$$
+
 \item Construire $H_1A$ puis prendre $v_2$ (première colonne de $H_1A$ \textbf{sans la première ligne et sans la première colonne}
+\item Recommencer jusqu'à avoir terminé
 \item à la fin, déterminer $R$ et $Q$
 \end{enumerate}
 $$H_nH_{n-1}\cdots H_2H_1A=R\longrightarrow A=\underbrace{H_1H_2\cdots H_{n-1}^TH_n^T}_{Q}R$$
-$v$ est un vecteur de norme $1$, on utilise $\tilde{v}$ si la norme est plus grande
-$$\vec{v}=\frac{\vec{n}}{\abs{\abs{\vec{n}}}}\qquad \vec{n}=x-y$$
-$$y=\textcolor{OrangeRed}{-}\rho\begin{pmatrix}
-1\\0\\\vdots\\0
-\end{pmatrix}=\textcolor{OrangeRed}{-}\text{signe}(x_i)\abs{\abs{x_i}}\left.\begin{pmatrix}
-1\\0\\\vdots\\0
-\end{pmatrix}\right\rbrace\text{taille de }x$$
-$$H=I-2vv^{H}$$
 
 \subsubsection{Système creux} : Réseaux hydrauliques, thermiques, électriques, etc... Possibilité de faire du "fill-in" si $n$ ou $b$ sont grands mais le coup sera inutilement grand.
 \subsubsection{Valeur $\kappa$}
-$$\kappa(A)=\abs{\abs{A}}_p\abs{\abs{A^{-1}}}_p$$
+$$\kappa(A)_p=\abs{\abs{A}}_p\abs{\abs{A^{-1}}}_p$$
+En général on utilisera $\kappa_2$ si ce n'est pas précisé (mais des fois on calcule $\kappa_\infty$)
 \subsection{Résolution au sens des moindres carrés}
-A compléter
+On résout le système
+$$A^TA\vec{x}=A^T\vec{b}$$
+Si $A$ est mal conditionné, $A^TA$ est doublement mal conditionné
+$$\kappa(A^TA)\approx\kappa^2(A)$$
+Pour obtenir le nombre de digits corrects, on fait :
+$$N_\text{digits}=\abs{\log_{10}(\epsilon)}-\log_{10}(\kappa)$$
+Avec $QR$ , on a une méthode plus stable
+$$\underset{m\times n}{A}=\underset{m\times m}{Q}\underset{m\times n}{\begin{pmatrix}R^\ast\\ 0\end{pmatrix}}$$
+\subsubsection{Minimisation}
+$$\abs{\abs{\vec{b}-A\vec{x}}}=\abs{\abs{QQ^T\vec{b}-QR\vec{x}}}=\abs{\abs{\underbrace{Q^T\vec{b}}_{\vec{c}}-R\vec{x}}}$$
+\begin{enumerate}
+\item Trouver $Q$ et $R$ avec la méthode au dessus
+\item Calculer $\vec{c}$
+$$\vec{c}=Q^T\vec{b}$$
+\item Trouver $R^\ast$ (partie "supérieure" de $R$, donc sans les 0 en bas)
+\item Trouver $c^\ast$ (partie "supérieure" de $\vec{c}$, en ignorant la valeur du bas pour avoir la même hauteur que $R^\ast$)
+\item Poser le système
+$$R^\ast\vec{x}=\vec{c}^\ast$$
+\item Résoudre à la main, en inversant, c'est égal
+\end{enumerate}
 \subsection{Méthodes itératives}
 \begin{figure}[H]
 \centering
